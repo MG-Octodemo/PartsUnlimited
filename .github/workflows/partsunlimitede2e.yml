@@ -7,6 +7,7 @@ env:
   BuildConfiguration: release
   BuildPlatform: any cpu
   system_debug: 'false'
+  solution: "PartsUnlimited-aspnet45/PartsUnlimited.sln"
 jobs:
   Phase_1:
     name: Phase 1
@@ -16,11 +17,11 @@ jobs:
       uses: actions/checkout@v2
     # NuGet does not accept glob patterns. Consider specifying files directly or using a solution.
     - name: NuGet restore
-      run: nuget restore **\*.sln
+      run: nuget restore ${{ env.solution }}
     - name: install msbuild
       uses: microsoft/setup-msbuild@v1.0.2
     - name: run msbuild
-      run: msbuild **\*.sln /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{ runner.temp }}" /p:IncludeServerNameInBuildInfo=True /p:GenerateBuildInfoConfigFile=true /p:BuildSymbolStorePath="${{ env.SymbolPath }}" /p:ReferencePath="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\Extensions\Microsoft\Pex" -p:Configuration=${{ env.BuildConfiguration }} -p:Platform="${{ env.BuildPlatform }}" -v:normal
+      run: msbuild ${{ env.solution }} /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{ runner.temp }}" /p:IncludeServerNameInBuildInfo=True /p:GenerateBuildInfoConfigFile=true /p:BuildSymbolStorePath="${{ env.SymbolPath }}" /p:ReferencePath="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\Extensions\Microsoft\Pex" -p:Configuration=${{ env.BuildConfiguration }} -p:Platform="${{ env.BuildPlatform }}" -v:normal
     - name: Setup VSTest Path
       uses: darenm/Setup-VSTest@v1
     - name: Install Dependencies for VSTest
