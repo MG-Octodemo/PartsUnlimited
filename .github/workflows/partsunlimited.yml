@@ -4,7 +4,7 @@ on:
 env:
   buildConfiguration: Release
   buildPlatform: Any CPU
-  solution: "**/*.sln"
+  solution: "*.sln"
 jobs:
   build:
     runs-on: windows-2019
