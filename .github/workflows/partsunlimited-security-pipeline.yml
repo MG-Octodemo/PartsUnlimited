@@ -1,0 +1,37 @@
+name: PartsUnlimited/PartsUnlimited-Security-Pipeline
+on:
+  workflow_dispatch:
+env:
+  LAWSId: c808e1ad-2a5b-47e6-8f74-0ecf9911250d
+  Projects: '"PartsUnlimited,AzDevOpsDemo"'
+  TreatAsPassed: Verify
+  system_debug: 'false'
+jobs:
+  Job_1:
+    name: Agent job 1
+    runs-on: windows-2019
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+#     # This item has no matching transformer
+#     - environment: {}
+#       enabled: true
+#       continueOnError: false
+#       alwaysRun: false
+#       displayName: ADO Security Scanner
+#       retryCountOnTaskFailure: 0
+#       task: 0f42e73b-1b51-41b9-8bd2-c1a864393316@1
+#       inputs:
+#         ADOConnectionName: 968c5009-8c92-41d2-8eb6-aa955fe54358
+#         OrgName: "${{ env.System_CollectionUri }}"
+#         ProjectNames: PartsUnlimited
+#         ScanFilter: Org_Project_User
+#         ServiceId:
+#         BuildNames:
+#         ReleaseNames:
+#         ServiceConnectionNames:
+#         AgentPoolNames:
+#         VariableGroupNames:
+#         isBaseline: true
+#         EnableOMSLogging: true
+#       task_type: task
