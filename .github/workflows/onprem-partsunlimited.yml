@@ -1,0 +1,114 @@
+name: PartsUnlimited/OnPrem-PartsUnlimited
+on:
+  workflow_dispatch:
+jobs:
+  On-Prem:
+    runs-on: ${{ matrix.agent }}
+    concurrency:
+      group: "${{ github.ref }}"
+      cancel-in-progress: false
+    if: github.event_type != 'pull_request'
+    strategy:
+      matrix:
+        agent:
+        - UPDATE_ME
+    steps:
+#     # This item has no matching transformer
+#     - environment: {}
+#       taskId: 1b2aec60-dc49-11e6-9b76-63056e018cac
+#       version: 0.*
+#       name: IIS Web App Manage
+#       refName: ''
+#       enabled: true
+#       alwaysRun: false
+#       continueOnError: false
+#       timeoutInMinutes: 0
+#       retryCountOnTaskFailure: 0
+#       definitionType:
+#       overrideInputs: {}
+#       condition: succeeded()
+#       inputs:
+#         EnableIIS: false
+#         IISDeploymentType: "${{ env.Parameters_IISDeploymentType }}"
+#         ActionIISWebsite: "${{ env.Parameters_ActionIISWebsite }}"
+#         ActionIISApplicationPool: CreateOrUpdateAppPool
+#         StartStopWebsiteName: "${{ env.Parameters_WebsiteName }}"
+#         WebsiteName: "${{ env.Parameters_WebsiteName }}"
+#         WebsitePhysicalPath: "%SystemDrive%\\inetpub\\wwwroot"
+#         WebsitePhysicalPathAuth: WebsiteUserPassThrough
+#         WebsiteAuthUserName:
+#         WebsiteAuthUserPassword:
+#         AddBinding: "${{ env.Parameters_AddBinding }}"
+#         Protocol: http
+#         IPAddress: All Unassigned
+#         Port:
+#         ServerNameIndication: false
+#         HostNameWithOutSNI:
+#         HostNameWithHttp:
+#         HostNameWithSNI:
+#         SSLCertThumbPrint:
+#         Bindings: "${{ env.Parameters_Bindings }}"
+#         CreateOrUpdateAppPoolForWebsite: "${{ env.Parameters_CreateOrUpdateAppPoolForWebsite }}"
+#         ConfigureAuthenticationForWebsite: false
+#         AppPoolNameForWebsite: "${{ env.Parameters_AppPoolNameForWebsite }}"
+#         DotNetVersionForWebsite: v4.0
+#         PipeLineModeForWebsite: Integrated
+#         AppPoolIdentityForWebsite: ApplicationPoolIdentity
+#         AppPoolUsernameForWebsite:
+#         AppPoolPasswordForWebsite:
+#         AnonymousAuthenticationForWebsite: false
+#         BasicAuthenticationForWebsite: false
+#         WindowsAuthenticationForWebsite: true
+#         ParentWebsiteNameForVD: "${{ env.Parameters_WebsiteName }}"
+#         VirtualPathForVD: "${{ env.Parameters_VirtualPathForApplication }}"
+#         PhysicalPathForVD: "%SystemDrive%\\inetpub\\wwwroot"
+#         VDPhysicalPathAuth: VDUserPassThrough
+#         VDAuthUserName:
+#         VDAuthUserPassword:
+#         ParentWebsiteNameForApplication: "${{ env.Parameters_WebsiteName }}"
+#         VirtualPathForApplication: "${{ env.Parameters_VirtualPathForApplication }}"
+#         PhysicalPathForApplication: "%SystemDrive%\\inetpub\\wwwroot"
+#         ApplicationPhysicalPathAuth: ApplicationUserPassThrough
+#         ApplicationAuthUserName:
+#         ApplicationAuthUserPassword:
+#         CreateOrUpdateAppPoolForApplication: false
+#         AppPoolNameForApplication:
+#         DotNetVersionForApplication: v4.0
+#         PipeLineModeForApplication: Integrated
+#         AppPoolIdentityForApplication: ApplicationPoolIdentity
+#         AppPoolUsernameForApplication:
+#         AppPoolPasswordForApplication:
+#         AppPoolName: "${{ env.Parameters_AppPoolName }}"
+#         DotNetVersion: v4.0
+#         PipeLineMode: Integrated
+#         AppPoolIdentity: ApplicationPoolIdentity
+#         AppPoolUsername:
+#         AppPoolPassword:
+#         StartStopRecycleAppPoolName:
+#         AppCmdCommands:
+#     # This item has no matching transformer
+#     - environment: {}
+#       taskId: 1b467810-6725-4b6d-accd-886174c09bba
+#       version: 0.*
+#       name: IIS Web App Deploy
+#       refName: ''
+#       enabled: true
+#       alwaysRun: false
+#       continueOnError: false
+#       timeoutInMinutes: 0
+#       retryCountOnTaskFailure: 0
+#       definitionType:
+#       overrideInputs: {}
+#       condition: succeeded()
+#       inputs:
+#         WebSiteName: "${{ env.Parameters_WebsiteName }}"
+#         VirtualApplication:
+#         Package: "${{ github.workspace }}/_PartsUnlimitedE2E/drop/PartsUnlimitedWebsite.zip"
+#         SetParametersFile:
+#         RemoveAdditionalFilesFlag: false
+#         ExcludeFilesFromAppDataFlag: false
+#         TakeAppOfflineFlag: false
+#         AdditionalArguments:
+#         XmlTransformation: false
+#         XmlVariableSubstitution: 'True'
+#         JSONFiles:
