@@ -4,7 +4,7 @@ on:
 env:
   buildConfiguration: Release
   buildPlatform: Any CPU
-  solution: "*.sln"
+  solution: "**/*.sln"
 jobs:
   build:
     runs-on: windows-2019
@@ -12,7 +12,7 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
     - uses: nuget/setup-nuget@v1
-    - run: nuget restore ${{ env.solution }}
+    - run: nuget restore ${{ env.solution }} -verbosity detail
     - name: install msbuild
       uses: microsoft/setup-msbuild@v1.0.2
     - name: run msbuild
