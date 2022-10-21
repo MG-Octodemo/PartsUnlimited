@@ -42,6 +42,33 @@ jobs:
         $args = $env:ARGS.Split(';').Trim()
         Write-Host "Arguments are: " $args
         & $exe $files /ResultsDirectory:$env:TEST_RESULTS_FOLDER $args
+    - name: Copy Files
+      uses: actions/github-script@v3
+      env:
+        TARGET_FOLDER: "${{ runner.temp }}"
+        SOURCE_FOLDER: "${{ github.workspace }}"
+        CLEAN_TARGET_FOLDER: false
+        FLATTEN_FOLDERS: false
+        OVERWRITE: false
+        CONTENTS: "**/*.json"
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}"
+        script: |-
+          const fs = require('fs').promises
+          const path = require('path')
+          const target = path.resolve(process.env.TARGET_FOLDER)
+          process.chdir(process.env.SOURCE_FOLDER || '.')
+          if (process.env.CLEAN_TARGET_FOLDER === 'true') await io.rmRF(target)
+          const flattenFolders = process.env.FLATTEN_FOLDERS === 'true'
+          const options = {force: process.env.OVERWRITE === 'true'}
+          const globber = await glob.create(process.env.CONTENTS || '**')
+          for await (const file of globber.globGenerator()) {
+            if ((await fs.lstat(file)).isDirectory()) continue
+            const filename = flattenFolders ? path.basename(file) : file.substring(process.cwd().length)
+            const dest = path.join(target, filename)
+            await io.mkdirP(path.dirname(dest))
+            await io.cp(file, dest, options)
+          }
     - name: Upload Test Results
       uses: actions/upload-artifact@v2
       if: always()
