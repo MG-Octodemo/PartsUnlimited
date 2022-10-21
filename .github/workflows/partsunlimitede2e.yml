@@ -1,6 +1,9 @@
 name: PartsUnlimited/PartsUnlimitedE2E
 on:
   workflow_call
+permissions:
+      id-token: write
+      contents: read
 env:
   HostingPlan: pule2e
   LAWSId: c808e1ad-2a5b-47e6-8f74-0ecf9911250d
