@@ -17,11 +17,11 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: print Client ID
-      run: echo ${{ secrets.AZURE_CLIENT_ID }}
+      run: echo "${{ secrets.AZURE_CLIENT_ID }}"
     - name: print Tenant ID
-      run: echo ${{ secrets.AZURE_TENANT_ID }}
+      run: echo "${{ secrets.AZURE_TENANT_ID }}"
     - name: print sub ID
-      run: echo ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      run: echo "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
   Dev:
     runs-on: windows-latest
     env:
