@@ -75,6 +75,6 @@ jobs:
         name: TestResultsFile
         path: "${{ runner.temp }}"
   release:
-    runs-on: windows-latest
-    steps:
-    - uses: ./.github/workflows/partsunlimitede2e.yml
+    needs:
+    - build
+    uses: ./.github/workflows/partsunlimitede2e.yml
