@@ -1,9 +1,6 @@
 name: PartsUnlimited/PartsUnlimitedE2E
 on:
   workflow_call:
-permissions:
-      id-token: write
-      contents: read
 env:
   HostingPlan: pule2e
   LAWSId: c808e1ad-2a5b-47e6-8f74-0ecf9911250d
@@ -11,17 +8,6 @@ env:
   ServerName: pule2e87ed314e
   TreatAsPassed: Verify,Manual
 jobs:
-  Test:
-    runs-on: windows-latest
-    env:
-      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-    steps:
-    - name: print Client ID
-      run: echo "${{ secrets.AZURE_CLIENT_ID }}"
-    - name: print Tenant ID
-      run: echo "${{ secrets.AZURE_TENANT_ID }}"
-    - name: print sub ID
-      run: echo "$AZURE_SUBSCRIPTION_ID"
   Dev:
     runs-on: windows-latest
     env:
