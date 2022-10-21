@@ -1,7 +1,13 @@
 name: PartsUnlimited/PartsUnlimitedE2E
 on:
-  workflow_call
-  
+  workflow_call:
+    secrets:
+      AZURE_CLIENT_ID:
+        required: true
+      AZURE_TENANT_ID:
+        required: true
+      AZURE_SUBSCRIPTION_ID:
+        required: true
 permissions:
       id-token: write
       contents: read
@@ -15,10 +21,6 @@ env:
 jobs:
   Test:
     runs-on: windows-latest
-    env:
-      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     steps:
     - name: print Client ID
       run: echo "$AZURE_CLIENT_ID"
