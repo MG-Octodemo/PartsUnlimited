@@ -1,6 +1,9 @@
 name: PartsUnlimited/PartsUnlimited
 on:
   push
+permissions:
+      id-token: write
+      contents: read
 env:
   buildConfiguration: Release
   buildPlatform: Any CPU
