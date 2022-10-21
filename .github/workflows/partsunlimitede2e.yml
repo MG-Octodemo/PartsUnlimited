@@ -1,6 +1,6 @@
 name: PartsUnlimited/PartsUnlimitedE2E
 on:
-#   # The 'artifactSource' resource was not converted because GitHub does not support this type of trigger
+  workflow_dispatch
 env:
   HostingPlan: pule2e
   LAWSId: c808e1ad-2a5b-47e6-8f74-0ecf9911250d
@@ -10,8 +10,6 @@ env:
 jobs:
   Dev:
     runs-on: windows-latest
-    concurrency:
-#       # GitHub Actions does not support parallel deployments
     env:
       WebsiteName: pule2e87ed314e
     if: github.event_type != 'pull_request'
@@ -19,41 +17,47 @@ jobs:
     - name: Azure Deployment
       uses: Azure/login@v1
       with:
-        creds: "${{ secrets.AZURE_CREDENTIALS }}"
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     - name: Azure Deployment
       run: |-
         az group create --location "East US 2" --name "${{ env.ResourceGroupName }}" --subscription ""
         az deployment group create --resource-group "${{ env.ResourceGroupName }}" --no-prompt true --mode "Incremental" --template-file "${{ github.workspace }}/PartsUnlimitedE2E/drop/PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.json" --parameters "${{ github.workspace }}/PartsUnlimitedE2E/drop/PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.param.json" --parameters WebsiteName=${{ env.WebsiteName }} PUL_ServerName=${{ env.ServerName }} PUL_HostingPlanName=${{ env.HostingPlan }}
-#     # 497d490f-eea7-4f2b-ab94-48d9c1acdcb1@3: unsupported application type (app)
+        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Dev --src-path "${{ github.workspace }}/PartsUnlimitedE2E/drop/PartsUnlimitedWebsite.zip"
   QA:
     needs:
     - Dev
     runs-on: windows-latest
     environment:
       name: QA
-    concurrency:
-#       # GitHub Actions does not support parallel deployments
     env:
       WebsiteName: pule2e87ed314e
     if: github.event_type != 'pull_request'
     steps:
-#     # 497d490f-eea7-4f2b-ab94-48d9c1acdcb1@3: unsupported application type (app)
+    - name: Azure Deployment
+      uses: Azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - name: Azure Deployment
+      run: |-
+        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Staging --src-path "${{ github.workspace }}/PartsUnlimitedE2E/drop/PartsUnlimitedWebsite.zip"
   Production:
     needs:
     - QA
     runs-on: windows-latest
-    concurrency:
-#       # GitHub Actions does not support parallel deployments
     env:
       WebsiteName: pule2e87ed314e
     if: github.event_type != 'pull_request'
     steps:
-#     # 497d490f-eea7-4f2b-ab94-48d9c1acdcb1@3: unsupported application type (app)
-  Test:
-    runs-on: windows-latest
-    concurrency:
-      group: "${{ github.ref }}"
-      cancel-in-progress: false
-    if: github.event_type != 'pull_request'
-    steps:
-#     # (testRun) is an unsupported test selection. This implementation supports only testAssemblies.
+    - name: Azure Deployment
+      uses: Azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - name: Azure Deployment
+      run: |-
+        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --src-path "${{ github.workspace }}/PartsUnlimitedE2E/drop/PartsUnlimitedWebsite.zip"
