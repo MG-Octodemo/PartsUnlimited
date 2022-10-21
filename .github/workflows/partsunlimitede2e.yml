@@ -15,16 +15,17 @@ env:
 jobs:
   Test:
     runs-on: windows-latest
+    env:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     steps:
     - name: print Client ID
-      run: |
-        echo -e "${{ secrets.AZURE_CLIENT_ID }}"
+      run: echo "$AZURE_CLIENT_ID"
     - name: print Tenant ID
-      run: |
-        echo -e "${{ secrets.AZURE_TENANT_ID }}"
+      run: echo "$AZURE_TENANT_ID"
     - name: print sub ID
-      run: |
-        echo -e "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+      run: echo "$AZURE_SUBSCRIPTION_ID"
   Dev:
     runs-on: windows-latest
     env:
