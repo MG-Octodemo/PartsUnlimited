@@ -8,9 +8,6 @@ env:
   buildConfiguration: Release
   buildPlatform: Any CPU
   solution: "PartsUnlimited-aspnet45/PartsUnlimited.sln"
-  AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 jobs:
   build:
     runs-on: windows-2019
@@ -84,3 +81,7 @@ jobs:
     needs:
     - build
     uses: ./.github/workflows/partsunlimitede2e.yml
+    secrets:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
