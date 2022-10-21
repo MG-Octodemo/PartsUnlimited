@@ -17,12 +17,18 @@ jobs:
       WebsiteName: pule2e87ed314e
     if: github.event_type != 'pull_request'
     steps:
+    - name: checkout
+      uses: actions/checkout@v2
     - name: Azure Deployment
       uses: Azure/login@v1
       with:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: actions/download-artifact@v3
+      with:
+        name: TestResultsFile
+        path: "${{ runner.temp }}"
     - name: Azure Deployment
       run: |-
         az group create --location "East US 2" --name "${{ env.ResourceGroupName }}" --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
@@ -44,6 +50,10 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: actions/download-artifact@v3
+      with:
+        name: TestResultsFile
+        path: "${{ runner.temp }}"
     - name: Azure Deployment
       run: |-
         az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Staging --src-path "${{ github.workspace }}/PartsUnlimitedE2E/drop/PartsUnlimitedWebsite.zip"
@@ -61,6 +71,10 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: actions/download-artifact@v3
+      with:
+        name: TestResultsFile
+        path: "${{ runner.temp }}"
     - name: Azure Deployment
       run: |-
         az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --src-path "${{ github.workspace }}/PartsUnlimitedE2E/drop/PartsUnlimitedWebsite.zip"
