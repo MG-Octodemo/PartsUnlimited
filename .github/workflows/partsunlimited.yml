@@ -1,4 +1,4 @@
-name: PartsUnlimited/PartsUnlimited
+name: "Build - Test - Deploy"
 on:
   push
 env:
