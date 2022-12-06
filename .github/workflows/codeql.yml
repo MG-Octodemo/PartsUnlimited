@@ -27,8 +27,7 @@ env:
 jobs:
   analyze:
     name: Analyze
-    runs-on: 
-      group: windows-runners
+    runs-on: windows-latest
     permissions:
       actions: read
       contents: read
