@@ -37,7 +37,6 @@ jobs:
         az group create --location "East US 2" --name "${{ env.ResourceGroupName }}" --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
         az deployment group create --resource-group "${{ env.ResourceGroupName }}" --no-prompt true --mode "Incremental" --template-file "${{ runner.temp }}/PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.json" --parameters "${{ runner.temp }}/PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.param.json" --parameters WebsiteName=${{ env.WebsiteName }} PUL_ServerName=${{ env.ServerName }} PUL_HostingPlanName=${{ env.HostingPlan }}
         az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Dev --src-path "${{ runner.temp }}/PartsUnlimitedWebsite.zip"
-        az webapp config set --name {resource-name} -g {resource-group} --generic-configurations "{\"virtualApplications\":[{\"physicalPath\":\"site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp\",\"preloadEnabled\":false,\"virtualDirectories\":null,\"virtualPath\":\"/\"}]}"
   QA:
     needs:
     - Dev
@@ -61,7 +60,6 @@ jobs:
     - name: Azure Deployment
       run: |-
         az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Staging --src-path "${{ runner.temp }}/PartsUnlimitedWebsite.zip"
-        az webapp config set --name {resource-name} -g {resource-group} --generic-configurations "{\"virtualApplications\":[{\"physicalPath\":\"site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp\",\"preloadEnabled\":false,\"virtualDirectories\":null,\"virtualPath\":\"/\"}]}"
   Production:
     needs:
     - QA
@@ -83,4 +81,3 @@ jobs:
     - name: Azure Deployment
       run: |-
         az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --src-path "${{ runner.temp }}/PartsUnlimitedWebsite.zip"
-        az webapp config set --name {resource-name} -g {resource-group} --generic-configurations "{\"virtualApplications\":[{\"physicalPath\":\"site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp\",\"preloadEnabled\":false,\"virtualDirectories\":null,\"virtualPath\":\"/\"}]}"
