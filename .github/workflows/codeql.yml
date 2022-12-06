@@ -27,7 +27,7 @@ env:
 jobs:
   analyze:
     name: Analyze
-    runs-on: windows-2019
+    runs-on: windows-latest-8-cores
     permissions:
       actions: read
       contents: read
