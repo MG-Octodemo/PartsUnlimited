@@ -12,7 +12,7 @@ env:
   TreatAsPassed: Verify,Manual
 jobs:
   Dev:
-    runs-on: windows-latest
+    runs-on: windows-latest-8-cores
     env:
       WebsiteName: pule2e87ed314e
     if: github.event_type != 'pull_request'
@@ -40,7 +40,7 @@ jobs:
   QA:
     needs:
     - Dev
-    runs-on: windows-latest
+    runs-on: windows-latest-8-cores
     environment:
       name: QA
     env:
@@ -63,7 +63,7 @@ jobs:
   Production:
     needs:
     - QA
-    runs-on: windows-latest
+    runs-on: windows-latest-8-cores
     env:
       WebsiteName: pule2e87ed314e
     if: github.event_type != 'pull_request'
