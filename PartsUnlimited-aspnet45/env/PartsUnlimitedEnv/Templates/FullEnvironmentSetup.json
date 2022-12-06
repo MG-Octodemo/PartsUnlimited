@@ -238,7 +238,15 @@
                     "StageSlotDatabaseConnectionString": { "value": "[reference('Microsoft.Resources/deployments/SqlServerAndDb-Stage').outputs.connectionString.value]" },
                     "AppInsightsKey": { "value": "[reference('Microsoft.Resources/deployments/AppInsights').outputs.instrumentationKey.value]" },
                     "DevSlotAppInsightsKey": { "value": "[reference('Microsoft.Resources/deployments/AppInsights-Dev').outputs.instrumentationKey.value]" },
-                    "StageSlotAppInsightsKey": { "value": "[reference('Microsoft.Resources/deployments/AppInsights-Stage').outputs.instrumentationKey.value]" }
+                    "StageSlotAppInsightsKey": { "value": "[reference('Microsoft.Resources/deployments/AppInsights-Stage').outputs.instrumentationKey.value]" },
+                    "virtualApplications": [
+                        {
+                          "physicalPath": "site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp",
+                          "preloadEnabled": "false",
+                          "virtualDirectories": null,
+                          "virtualPath": "/"
+                        }
+                      ]
                 }
             }
         },
