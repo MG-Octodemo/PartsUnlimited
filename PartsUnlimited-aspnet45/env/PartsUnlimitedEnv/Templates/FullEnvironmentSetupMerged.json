@@ -398,7 +398,15 @@
             },
             "properties": {
                 "name": "[parameters('WebsiteName')]",
-                "serverFarm": "[parameters('PUL_HostingPlanName')]"
+                "serverFarm": "[parameters('PUL_HostingPlanName')]",
+                "virtualApplications": [
+                        {
+                          "physicalPath": "site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp",
+                          "preloadEnabled": "false",
+                          "virtualDirectories": null,
+                          "virtualPath": "/"
+                        }
+                      ]
             },
             "resources": [
                 {
@@ -447,6 +455,14 @@
                         "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]"
                     ],
                     "properties": {
+                        "virtualApplications": [
+                        {
+                          "physicalPath": "site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp",
+                          "preloadEnabled": "false",
+                          "virtualDirectories": null,
+                          "virtualPath": "/"
+                        }
+                      ]
                     },
                     "resources": [
                         {
@@ -485,6 +501,14 @@
                         "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]"
                     ],
                     "properties": {
+                        "virtualApplications": [
+                        {
+                          "physicalPath": "site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp",
+                          "preloadEnabled": "false",
+                          "virtualDirectories": null,
+                          "virtualPath": "/"
+                        }
+                      ]
                     },
                     "resources": [
                         {
