@@ -7,7 +7,8 @@ env:
   solution: "PartsUnlimited-aspnet45/PartsUnlimited.sln"
 jobs:
   build:
-    runs-on: windows-latest-8-cores
+    runs-on: 
+      group: windows-runners
     steps:
     - name: checkout
       uses: actions/checkout@v2
