@@ -27,7 +27,8 @@ env:
 jobs:
   analyze:
     name: Analyze
-    runs-on: windows-latest-8-cores
+    runs-on: 
+      group: windows-runners
     permissions:
       actions: read
       contents: read
