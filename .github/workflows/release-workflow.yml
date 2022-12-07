@@ -35,7 +35,8 @@ jobs:
       run: |-
         az group create --location "East US 2" --name "${{ env.ResourceGroupName }}" --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
         az deployment group create --resource-group "${{ env.ResourceGroupName }}" --no-prompt true --mode "Incremental" --template-file "${{ runner.temp }}/PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.json" --parameters "${{ runner.temp }}/PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.param.json" --parameters WebsiteName=${{ env.WebsiteName }} PUL_ServerName=${{ env.ServerName }} PUL_HostingPlanName=${{ env.HostingPlan }}
-        az webapp deployment source config-zip --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Dev --src "${{ runner.temp }}/PartsUnlimitedWebsite.zip"
+        $publishProfile = az webapp deployment list-publishing-profiles --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --query "[?publishMethod=='MSDeploy']" | ConvertFrom-Json
+        "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:dirPath="${{ runner.temp }}/PartsUnlimitedWebsite.zip",includeAcls=false -dest:dirpath=D:\home\site\wwwroot,ComputerName="https://${{ env.WebsiteName }}.scm.azurewebsites.net/msdeploy.axd?site=$(${{ env.WebsiteName }})",UserName=$($publishProfile.userName),Password=$($publishProfile.userPWD),AuthType='Basic' -verbose -debug
   QA:
     needs:
     - Dev
