@@ -7,7 +7,7 @@ env:
   solution: "PartsUnlimited-aspnet45/PartsUnlimited.sln"
 jobs:
   build:
-    name: build 🚧
+    name: build & test 🚧
     runs-on: 
       group: windows-runners
     steps:
@@ -66,7 +66,7 @@ jobs:
           const globber = await glob.create(process.env.CONTENTS || '**')
           for await (const file of globber.globGenerator()) {
             if ((await fs.lstat(file)).isDirectory()) continue
-            const filename = myownname
+            const filename = 'myownname'
             const dest = path.join(target, filename)
             await io.mkdirP(path.dirname(dest))
             await io.cp(file, dest, options)
