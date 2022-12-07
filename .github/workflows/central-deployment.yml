@@ -28,7 +28,7 @@ jobs:
     - name: Executing VSTest
       env:
         SEARCH_FOLDER: "${{ github.workspace }}"
-        TEST_RESULTS_FOLDER: "${{ runner.temp }}/${{ github.run_id }}_resultsfolder"
+        TEST_RESULTS_FOLDER: "${{ runner.temp }}/VSTest_resultsfolder"
         PATTERN: "**\\*test*.dll;!**\\*TestAdapter.dll;!**\\obj\\**"
         ARGS: "/Logger:trx"
       shell: pwsh
@@ -72,7 +72,7 @@ jobs:
           }
     - name: Test Report
       env:
-        TEST_RESULTS_FOLDER: "${{ runner.temp }}/${{ github.run_id }}_resultsfolder"
+        TEST_RESULTS_FOLDER: "${{ runner.temp }}/VSTest_resultsfolder"
       uses: dorny/test-reporter@v1
       if: success() || failure()  
       with:
