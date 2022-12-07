@@ -18,6 +18,11 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
     - name: run msbuild
       run: msbuild ${{ env.solution }} /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{ runner.temp }}" -p:Configuration=${{ env.buildConfiguration }} -p:Platform="${{ env.buildPlatform }}"
+  test:
+    runs-on: 
+      group: windows-runners
+    needs:
+      build
     - name: Setup VSTest Path
       uses: darenm/Setup-VSTest@v1
     - name: Install Dependencies for VSTest
@@ -76,8 +81,9 @@ jobs:
         name: TestResultsFile
         path: "${{ runner.temp }}"
   release:
+    name: release 🚢
     needs:
-    - build
-    uses: ./.github/workflows/partsunlimitede2e.yml
+    - test
+    uses: ./.github/workflows/Release-Workflow.yml
     secrets:
       inherit

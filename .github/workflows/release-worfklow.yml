@@ -6,13 +6,13 @@ permissions:
       contents: read
 env:
   HostingPlan: pule2e
-  LAWSId: c808e1ad-2a5b-47e6-8f74-0ecf9911250d
   ResourceGroupName: ASPDOTNET
   ServerName: pule2e87ed314e
   TreatAsPassed: Verify,Manual
 jobs:
   Dev:
-    runs-on: windows-latest
+    runs-on: 
+      group: windows-runners
     env:
       WebsiteName: pule2e87ed314e
     if: github.event_type != 'pull_request'
@@ -40,7 +40,8 @@ jobs:
   QA:
     needs:
     - Dev
-    runs-on: windows-latest
+    runs-on: 
+      group: windows-runners
     environment:
       name: QA
     env:
@@ -63,7 +64,8 @@ jobs:
   Production:
     needs:
     - QA
-    runs-on: windows-latest
+    runs-on: 
+      group: windows-runners
     env:
       WebsiteName: pule2e87ed314e
     if: github.event_type != 'pull_request'
