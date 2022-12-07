@@ -70,21 +70,19 @@ jobs:
             await io.mkdirP(path.dirname(dest))
             await io.cp(file, dest, options)
           }
-    - name: Test Report
-      env:
-        TEST_RESULTS_FOLDER: "${{ runner.temp }}/${{ github.run_id }}_resultsfolder"
-      uses: dorny/test-reporter@v1
-      if: success() || failure()  
-      with:
-        name: .Net Tests            
-        path: '${{ env.TEST_RESULTS_FOLDER }}/*.trx'
-        reporter: dotnet-trx
-        path-replace-backslashes: 'false'
     - name: Upload Build binaries
       uses: actions/upload-artifact@v2
       with:
         name: BuildResultsFile
         path: "${{ runner.temp }}"
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()  
+      with:
+        name: .Net Tests   
+        artifact: BuildResultsFile        
+        path: '**/*.trx'
+        reporter: dotnet-trx
   release:
     name: release 🚢
     needs:
