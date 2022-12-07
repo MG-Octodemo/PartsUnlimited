@@ -1,7 +1,6 @@
 name: "Build - Test - Deploy"
 on:
   push:
-    branches: [ "master" ]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "master" ]
@@ -95,6 +94,7 @@ jobs:
     name: release 🚢
     needs:
     - build
+    if: github.ref == 'refs/heads/main' && github.event_type != 'pull_request'
     uses: ./.github/workflows/release-workflow.yml
     secrets:
       inherit

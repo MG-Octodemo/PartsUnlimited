@@ -28,7 +28,7 @@ env:
 jobs:
   analyze:
     name: SAST Analysis
-    runs-on: windows-2019
+    runs-on: Windows-Runner16
     permissions:
       actions: read
       contents: read

@@ -16,7 +16,6 @@ jobs:
       name: Dev
     env:
       WebsiteName: pule2e87ed314e
-    if: github.event_type != 'pull_request'
     steps:
     - name: checkout
       uses: actions/checkout@v2
@@ -46,7 +45,6 @@ jobs:
       name: QA
     env:
       WebsiteName: pule2e87ed314e
-    if: github.event_type != 'pull_request'
     steps:
     - name: Azure Deployment
       uses: Azure/login@v1
@@ -69,7 +67,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WebsiteName: pule2e87ed314e
-    if: github.event_type != 'pull_request'
     steps:
     - name: Azure Deployment
       uses: Azure/login@v1
