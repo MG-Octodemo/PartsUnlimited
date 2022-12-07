@@ -79,7 +79,7 @@ jobs:
   release:
     name: release 🚢
     needs:
-    - test
+    - build
     uses: ./.github/workflows/release-workflow.yml
     secrets:
       inherit
