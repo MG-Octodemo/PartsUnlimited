@@ -1,4 +1,4 @@
-name: PartsUnlimited/PartsUnlimitedE2E
+name: Release
 on:
   workflow_call:
 permissions:

@@ -9,7 +9,7 @@
 # the `language` matrix defined below to confirm you have the correct set of
 # supported CodeQL languages.
 #
-name: "CodeQL"
+name: "Security Scan - CodeQL"
 
 on:
   push:
@@ -26,7 +26,7 @@ env:
   
 jobs:
   analyze:
-    name: SAST Analysis 🔒
+    name: SAST Analysis
     runs-on: 
       group: windows-runners
     permissions:
