@@ -58,7 +58,7 @@ jobs:
     # Autobuild attempts to build any compiled languages,
     # but you can substitute this step with the specific build process applicable to your application
     - name: run msbuild
-      run: msbuild ${{ env.solution }} /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{ runner.temp }}" -p:Configuration=${{ env.buildConfiguration }} -p:Platform="${{ env.buildPlatform }}" -m
+      run: msbuild ${{ env.solution }} /p:DeployOnBuild=false /p:SkipInvalidConfigurations=true -p:Configuration=${{ env.buildConfiguration }} -p:Platform="${{ env.buildPlatform }}" -m
 
     # Last step in this configuration is to perform the CodeQL Analysis. 
     # CodeQL analyzes your application's compilation process and creates a data flow chart 
