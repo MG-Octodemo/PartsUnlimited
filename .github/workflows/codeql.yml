@@ -66,6 +66,6 @@ jobs:
     # CodeQL analyzes your application's compilation process and creates a data flow chart 
     # which allows to discover vulnerabilities with a very low false positives rate
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v2.1.35
       with:
         category: "/language:${{matrix.language}}"
