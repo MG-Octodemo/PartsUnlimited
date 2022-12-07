@@ -30,7 +30,7 @@
       "value": null
     },
     "PUL_HostingPlanSKU": {
-      "value": "PremiumV2"
+      "value": "PremiumV3"
     },
     "PUL_HostingPlanWorkerSize": {
       "value": "5"
