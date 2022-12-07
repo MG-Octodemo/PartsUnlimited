@@ -30,10 +30,10 @@
       "value": null
     },
     "PUL_HostingPlanSKU": {
-      "value": "Standard"
+      "value": "Premium v3"
     },
     "PUL_HostingPlanWorkerSize": {
-      "value": "0"
+      "value": "2"
     },
     "EnableRules": {
       "value": false
