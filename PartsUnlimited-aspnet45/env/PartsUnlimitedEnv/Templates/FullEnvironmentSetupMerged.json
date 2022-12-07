@@ -400,6 +400,7 @@
                 "name": "[parameters('WebsiteName')]",
                 "serverFarm": "[parameters('PUL_HostingPlanName')]",
                 "siteConfig": {
+                    "alwaysOn": "true",
                 "virtualApplications": [
                         {
                           "physicalPath": "site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp",
@@ -458,6 +459,7 @@
                     ],
                     "properties": {
                         "siteConfig": {
+                            "alwaysOn": "true",
                         "virtualApplications": [
                         {
                           "physicalPath": "site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp",
@@ -506,6 +508,7 @@
                     ],
                     "properties": {
                         "siteConfig": {
+                            "alwaysOn": "true",
                         "virtualApplications": [
                         {
                           "physicalPath": "site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp",
