@@ -399,6 +399,7 @@
             "properties": {
                 "name": "[parameters('WebsiteName')]",
                 "serverFarm": "[parameters('PUL_HostingPlanName')]",
+                "siteConfig": {
                 "virtualApplications": [
                         {
                           "physicalPath": "site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp",
@@ -407,6 +408,7 @@
                           "virtualPath": "/"
                         }
                       ]
+                    }
             },
             "resources": [
                 {
@@ -455,6 +457,7 @@
                         "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]"
                     ],
                     "properties": {
+                        "siteConfig": {
                         "virtualApplications": [
                         {
                           "physicalPath": "site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp",
@@ -463,6 +466,7 @@
                           "virtualPath": "/"
                         }
                       ]
+                    }
                     },
                     "resources": [
                         {
@@ -501,6 +505,7 @@
                         "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]"
                     ],
                     "properties": {
+                        "siteConfig": {
                         "virtualApplications": [
                         {
                           "physicalPath": "site\\wwwroot\\Content\\D_C\\a\\PartsUnlimited\\PartsUnlimited\\PartsUnlimited-aspnet45\\src\\PartsUnlimitedWebsite\\obj\\Release\\Package\\PackageTmp",
@@ -509,6 +514,7 @@
                           "virtualPath": "/"
                         }
                       ]
+                    }
                     },
                     "resources": [
                         {
