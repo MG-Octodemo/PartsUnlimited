@@ -77,13 +77,15 @@ jobs:
     - name: Test Report
       env:
         TEST_RESULTS_FOLDER: "${{ runner.temp }}/VSTest_resultsfolder"
-      uses: dorny/test-reporter@v1
+      uses: phoenix-actions/test-reporting@v8
+      id: test-report 
       if: success() || failure()  
       with:
         name: .Net Tests            
         path: '${{ env.TEST_RESULTS_FOLDER }}/*.trx'
         reporter: dotnet-trx
         path-replace-backslashes: 'true'
+        output-to: 'step-summary'
     - name: Upload Build binaries
       uses: actions/upload-artifact@v2
       with:
