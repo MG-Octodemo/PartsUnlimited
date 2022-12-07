@@ -8,13 +8,12 @@ env:
 jobs:
   build:
     name: build & test 🚧
-    runs-on: 
-      group: windows-runners
+    runs-on: Windows-Runner16
     steps:
     - name: checkout
       uses: actions/checkout@v2
     - uses: nuget/setup-nuget@v1
-    - run: nuget restore ${{ env.solution }} -verbosity detail
+    - run: nuget restore ${{ env.solution }}
     - name: install msbuild
       uses: microsoft/setup-msbuild@v1.0.2
     - name: run msbuild
@@ -66,7 +65,7 @@ jobs:
           const globber = await glob.create(process.env.CONTENTS || '**')
           for await (const file of globber.globGenerator()) {
             if ((await fs.lstat(file)).isDirectory()) continue
-            const filename = 'myownname'
+            const filename = flattenFolders ? path.basename(file) : file.substring(process.cwd().length)
             const dest = path.join(target, filename)
             await io.mkdirP(path.dirname(dest))
             await io.cp(file, dest, options)
