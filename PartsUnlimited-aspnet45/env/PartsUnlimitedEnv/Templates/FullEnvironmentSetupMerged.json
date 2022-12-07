@@ -37,12 +37,12 @@
         "PUL_HostingPlanSKU": {
             "type": "string",
            
-            "defaultValue": "Standard"
+            "defaultValue": "Premium"
         },
         "PUL_HostingPlanWorkerSize": {
             "type": "string",
            
-            "defaultValue": "0"
+            "defaultValue": "2"
         },
         "EnableRules": {
             "type": "bool",
