@@ -72,13 +72,14 @@ jobs:
           }
     - name: Test Report
       env:
-        TEST_RESULTS_FOLDER: "${{ runner.temp }}/${{ github.run_id }}_resultsfolder/*.trx"
+        TEST_RESULTS_FOLDER: "${{ runner.temp }}\${{ github.run_id }}_resultsfolder\*.trx"
       uses: dorny/test-reporter@v1
       if: success() || failure()  
       with:
         name: .Net Tests            
-        path: "${{ env.TEST_RESULTS_FOLDER }}"
+        path: '${{ env.TEST_RESULTS_FOLDER }}'
         reporter: dotnet-trx
+        path-replace-backslashes: 'false'
     - name: Upload Build binaries
       uses: actions/upload-artifact@v2
       with:
