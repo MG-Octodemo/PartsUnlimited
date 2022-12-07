@@ -19,17 +19,6 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
     - name: run msbuild
       run: msbuild ${{ env.solution }} /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{ runner.temp }}" -p:Configuration=${{ env.buildConfiguration }} -p:Platform="${{ env.buildPlatform }}"
-  test:
-    name: test 🔍
-    runs-on: 
-      group: windows-runners
-    needs:
-      build
-    steps:
-    - name: checkout
-      uses: actions/checkout@v2
-    - name: install msbuild
-      uses: microsoft/setup-msbuild@v1.0.2
     - name: Setup VSTest Path
       uses: darenm/Setup-VSTest@v1
     - name: Install Dependencies for VSTest
@@ -77,7 +66,7 @@ jobs:
           const globber = await glob.create(process.env.CONTENTS || '**')
           for await (const file of globber.globGenerator()) {
             if ((await fs.lstat(file)).isDirectory()) continue
-            const filename = flattenFolders ? path.basename(file) : file.substring(process.cwd().length)
+            const filename = myownname
             const dest = path.join(target, filename)
             await io.mkdirP(path.dirname(dest))
             await io.cp(file, dest, options)
