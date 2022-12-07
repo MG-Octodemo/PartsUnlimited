@@ -94,7 +94,7 @@ jobs:
     name: release 🚢
     needs:
     - build
-    if: github.ref == 'refs/heads/main' && github.event_type != 'pull_request'
+    if: github.ref == 'refs/heads/master' && github.event_type != 'pull_request'
     uses: ./.github/workflows/release-workflow.yml
     secrets:
       inherit
