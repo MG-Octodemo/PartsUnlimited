@@ -77,7 +77,7 @@ jobs:
     - name: Test Report
       env:
         TEST_RESULTS_FOLDER: "${{ runner.temp }}/VSTest_resultsfolder"
-      uses: phoenix-actions/test-reporting@v8
+      uses: phoenix-actions/test-reporting@v9
       id: test-report 
       if: success() || failure()  
       with:
