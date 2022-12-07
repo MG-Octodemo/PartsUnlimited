@@ -85,6 +85,6 @@ jobs:
     name: release 🚢
     needs:
     - test
-    uses: ./.github/workflows/Release-Workflow.yml
+    uses: ./.github/workflows/release-workflow.yml
     secrets:
       inherit
