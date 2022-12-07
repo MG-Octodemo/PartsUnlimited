@@ -12,6 +12,8 @@ env:
 jobs:
   Dev:
     runs-on: windows-2019
+    environment:
+      name: Dev
     env:
       WebsiteName: pule2e87ed314e
     if: github.event_type != 'pull_request'
@@ -62,6 +64,8 @@ jobs:
   Production:
     needs:
     - QA
+    environment:
+      name: Production
     runs-on: windows-2019
     env:
       WebsiteName: pule2e87ed314e
