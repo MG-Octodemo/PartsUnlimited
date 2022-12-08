@@ -21,7 +21,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
     - name: run msbuild
       run: msbuild ${{ env.solution }} /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="${{ runner.temp }}" -p:Configuration=${{ env.buildConfiguration }} -p:Platform="${{ env.buildPlatform }}" -m
-    - uses: Microsoft/vstest-action@v1
+    - uses: Microsoft/vstest-action@v1.0.0
       with:
         testAssembly: |-
           **\*test*.dll
