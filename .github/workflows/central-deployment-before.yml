@@ -115,7 +115,6 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: BuildResultsFile
-        path: "${{ runner.temp }}"
     - name: Display structure of downloaded files
       run: ls -R
       working-directory: "${{ runner.temp }}"
@@ -142,7 +141,6 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: BuildResultsFile
-        path: "${{ runner.temp }}"
     - name: Azure Deployment
       run: |-
         az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Staging --src-path "${{ runner.temp }}/PartsUnlimitedWebsite.zip"
@@ -164,7 +162,6 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: BuildResultsFile
-        path: "${{ runner.temp }}"
     - name: Azure Deployment
       run: |-
         az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --src-path "${{ runner.temp }}/PartsUnlimitedWebsite.zip"
