@@ -119,12 +119,11 @@ jobs:
         name: BuildResultsFile
     - name: Display structure of downloaded files
       run: ls -R
-      working-directory: "${{ runner.temp }}"
     - name: Azure Deployment
       run: |-
         az group create --location "East US 2" --name "${{ env.ResourceGroupName }}" --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
-        az deployment group create --resource-group "${{ env.ResourceGroupName }}" --no-prompt true --mode "Incremental" --template-file "${{ runner.temp }}/PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.json" --parameters "${{ runner.temp }}/PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.param.json" --parameters WebsiteName=${{ env.WebsiteName }} PUL_ServerName=${{ env.ServerName }} PUL_HostingPlanName=${{ env.HostingPlan }}
-        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Dev --src-path "${{ runner.temp }}/PartsUnlimitedWebsite.zip"
+        az deployment group create --resource-group "${{ env.ResourceGroupName }}" --no-prompt true --mode "Incremental" --template-file "PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.json" --parameters "PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.param.json" --parameters WebsiteName=${{ env.WebsiteName }} PUL_ServerName=${{ env.ServerName }} PUL_HostingPlanName=${{ env.HostingPlan }}
+        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Dev --src-path "PartsUnlimitedWebsite.zip"
   QA:
     needs:
     - Dev
@@ -145,7 +144,7 @@ jobs:
         name: BuildResultsFile
     - name: Azure Deployment
       run: |-
-        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Staging --src-path "${{ runner.temp }}/PartsUnlimitedWebsite.zip"
+        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Staging --src-path "PartsUnlimitedWebsite.zip"
   Production:
     needs:
     - QA
@@ -166,4 +165,4 @@ jobs:
         name: BuildResultsFile
     - name: Azure Deployment
       run: |-
-        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --src-path "${{ runner.temp }}/PartsUnlimitedWebsite.zip"
+        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --src-path "PartsUnlimitedWebsite.zip"
