@@ -41,7 +41,7 @@ jobs:
     secrets:
       inherit
   QA:
-    needs: Dev
+    needs: [EnvSetup, Dev]
     uses: ./.github/workflows/reusable-release-logic.yml
     with:
       HostingPlan: ${{needs.EnvSetup.outputs.HostingPlan}}
@@ -53,7 +53,7 @@ jobs:
     secrets:
       inherit
   Production:
-    needs: QA
+    needs: [EnvSetup, QA]
     uses: ./.github/workflows/reusable-release-logic.yml
     with:
       HostingPlan: ${{needs.EnvSetup.outputs.HostingPlan}}
