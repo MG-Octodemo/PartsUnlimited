@@ -37,7 +37,7 @@ jobs:
       ServerName: ${{needs.EnvSetup.outputs.ServerName}}
       TreatAsPassed: ${{needs.EnvSetup.outputs.TreatAsPassed}}
       WebsiteName: ${{needs.EnvSetup.outputs.WebsiteName}}
-      Environment: ${{ matrix.Environment }}
+      Environment: Dev
     secrets:
       inherit
   QA:
@@ -49,7 +49,7 @@ jobs:
       ServerName: ${{needs.EnvSetup.outputs.ServerName}}
       TreatAsPassed: ${{needs.EnvSetup.outputs.TreatAsPassed}}
       WebsiteName: ${{needs.EnvSetup.outputs.WebsiteName}}
-      Environment: ${{ matrix.Environment }}
+      Environment: QA
     secrets:
       inherit
   Production:
@@ -61,6 +61,6 @@ jobs:
       ServerName: ${{needs.EnvSetup.outputs.ServerName}}
       TreatAsPassed: ${{needs.EnvSetup.outputs.TreatAsPassed}}
       WebsiteName: ${{needs.EnvSetup.outputs.WebsiteName}}
-      Environment: ${{ matrix.Environment }}
+      Environment: Production
     secrets:
       inherit
