@@ -8,17 +8,38 @@ env:
   TreatAsPassed: Verify,Manual
   WebsiteName: pule2e87ed314e
 jobs:
-  Deploy:
-    strategy:
-      matrix:
-        Environment: [Dev, QA, Production]
-    uses: ./.github/workflows/reusable-release-logic.yml
-    with:
+  EnvSetup:
+    name: Setup Dynamic Environment Variables
+    runs-on: ubuntu-latest
+    outputs:
       HostingPlan: ${{ env.HostingPlan }}
       ResourceGroupName: ${{ env.ResourceGroupName }}
       ServerName: ${{ env.ServerName }}
       TreatAsPassed: ${{ env.TreatAsPassed }}
       WebsiteName: ${{ env.WebsiteName }}
+    steps:
+      - name: Set HostingPlan
+        run: echo "{HostingPlan}={pule2e}" >> $GITHUB_ENV
+      - name: Set ResourceGroupName
+        run: echo "{ResourceGroupName}={ASPDOTNET}" >> $GITHUB_ENV
+      - name: Set ServerName
+        run: echo "{ServerName}={pule2e87ed314e}" >> $GITHUB_ENV
+      - name: Set TreatAsPassed
+        run: echo "{TreatAsPassed}={Verify,Manual}" >> $GITHUB_ENV
+      - name: Set WebsiteName
+        run: echo "{WebsiteName}={pule2e87ed314e}" >> $GITHUB_ENV
+  Deploy:
+    needs: EnvSetup
+    strategy:
+      matrix:
+        Environment: [Dev, QA, Production]
+    uses: ./.github/workflows/reusable-release-logic.yml
+    with:
+      HostingPlan: ${{needs.EnvSetup.outputs.HostingPlan}}
+      ResourceGroupName: ${{needs.EnvSetup.outputs.ResourceGroupName}}
+      ServerName: ${{needs.EnvSetup.outputs.ServerName}}
+      TreatAsPassed: ${{needs.EnvSetup.outputs.TreatAsPassed}}
+      WebsiteName: ${{needs.EnvSetup.outputs.WebsiteName}}
       Environment: ${{ matrix.Environment }}
     secrets:
       inherit
