@@ -1,4 +1,4 @@
-name: "Build - Test - Deploy"
+name: "Build - Test - Deploy - No Scale"
 on:
   push:
   pull_request:
