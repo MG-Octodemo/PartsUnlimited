@@ -12,6 +12,9 @@ env:
   ResourceGroupName: ASPDOTNET
   ServerName: pule2e87ed314e
   TreatAsPassed: Verify,Manual
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
 jobs:
   build:
     name: build & test 🚧
