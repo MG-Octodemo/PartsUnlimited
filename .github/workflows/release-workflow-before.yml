@@ -1,4 +1,4 @@
-name: "Reusable Release"
+name: "Release Workflow Before"
 on:
   workflow_call:
 permissions:

@@ -1,0 +1,54 @@
+name: "Reusable Release Logic"
+on:
+  workflow_call:
+    inputs:
+      HostingPlan:
+        required: true
+        type: string
+      ResourceGroupName:
+        required: true
+        type: string
+      WebsiteName:
+        required: true
+        type: string
+      ServerName:
+        required: true
+        type: string
+      TreatAsPassed:
+        required: true
+        type: string
+      Environment:
+        required: true
+        type: string
+permissions:
+      id-token: write
+      contents: read
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.Environment }}
+    env:
+      WebsiteName: ${{ inputs.WebsiteName }}
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: Azure Deployment
+      uses: Azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: actions/download-artifact@v3
+      with:
+        name: BuildResultsFile
+        path: "${{ runner.temp }}"
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: "${{ runner.temp }}"
+    - name: Azure Deployment
+      run: |-
+        az group create --location "East US 2" --name "${{ inputs.ResourceGroupName }}" --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+        az deployment group create --resource-group "${{ inputs.ResourceGroupName }}" --no-prompt true --mode "Incremental" --template-file "${{ runner.temp }}/PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.json" --parameters "${{ runner.temp }}/PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.param.json" --parameters WebsiteName=${{ inputs.WebsiteName }} PUL_ServerName=${{ inputs.ServerName }} PUL_HostingPlanName=${{ inputs.HostingPlan }}
+        az webapp deploy --resource-group "${{ inputs.ResourceGroupName }}" --name "${{ inputs.WebsiteName }}" --slot Dev --src-path "${{ runner.temp }}/PartsUnlimitedWebsite.zip"
+ 

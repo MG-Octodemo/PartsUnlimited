@@ -1,13 +1,17 @@
-name: "Build - Test - Deploy"
+name: "Build - Test - Deploy - No Scale"
 on:
-  push:
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ "master" ]
+  workflow_dispatch:
 env:
   buildConfiguration: Release
   buildPlatform: Any CPU
   solution: "PartsUnlimited-aspnet45/PartsUnlimited.sln"
+  HostingPlan: pule2e
+  ResourceGroupName: ASPDOTNET
+  ServerName: pule2e87ed314e
+  TreatAsPassed: Verify,Manual
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
 jobs:
   build:
     name: build & test 🚧
@@ -90,11 +94,72 @@ jobs:
       with:
         name: BuildResultsFile
         path: "${{ runner.temp }}"
-  release:
-    name: release 🚢
+  Dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: Dev
+    env:
+      WebsiteName: pule2e87ed314e
     needs:
-    - build
-    if: github.ref == 'refs/heads/master' && github.event_type != 'pull_request'
-    uses: ./.github/workflows/release-workflow-after.yml
-    secrets:
-      inherit
+      build
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: Azure Deployment
+      uses: Azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: actions/download-artifact@v3
+      with:
+        name: BuildResultsFile
+    - name: Display structure of downloaded files
+      run: ls -R
+    - name: Azure Deployment
+      run: |-
+        az group create --location "East US 2" --name "${{ env.ResourceGroupName }}" --subscription "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+        az deployment group create --resource-group "${{ env.ResourceGroupName }}" --no-prompt true --mode "Incremental" --template-file "PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.json" --parameters "PartsUnlimited-aspnet45/env/PartsUnlimitedEnv/Templates/FullEnvironmentSetupMerged.param.json" --parameters WebsiteName=${{ env.WebsiteName }} PUL_ServerName=${{ env.ServerName }} PUL_HostingPlanName=${{ env.HostingPlan }}
+        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Dev --src-path "PartsUnlimitedWebsite.zip"
+  QA:
+    needs:
+    - Dev
+    runs-on: ubuntu-latest
+    environment:
+      name: QA
+    env:
+      WebsiteName: pule2e87ed314e
+    steps:
+    - name: Azure Deployment
+      uses: Azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: actions/download-artifact@v3
+      with:
+        name: BuildResultsFile
+    - name: Azure Deployment
+      run: |-
+        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Staging --src-path "PartsUnlimitedWebsite.zip"
+  Production:
+    needs:
+    - QA
+    environment:
+      name: Production
+    runs-on: ubuntu-latest
+    env:
+      WebsiteName: pule2e87ed314e
+    steps:
+    - name: Azure Deployment
+      uses: Azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    - uses: actions/download-artifact@v3
+      with:
+        name: BuildResultsFile
+    - name: Azure Deployment
+      run: |-
+        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --src-path "PartsUnlimitedWebsite.zip"
