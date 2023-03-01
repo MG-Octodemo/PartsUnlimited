@@ -21,4 +21,4 @@ jobs:
       ServerName: ${{ env.ServerName }}
       TreatAsPassed: ${{ env.TreatAsPassed }}
       WebsiteName: ${{ env.WebsiteName }}
-      Environment: ${{ env.Environment }}
+      Environment: ${{ matrix.Environment }}
