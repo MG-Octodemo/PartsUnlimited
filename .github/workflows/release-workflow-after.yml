@@ -28,11 +28,32 @@ jobs:
         run: echo "{TreatAsPassed}={Verify,Manual}" >> $GITHUB_ENV
       - name: Set WebsiteName
         run: echo "{WebsiteName}={pule2e87ed314e}" >> $GITHUB_ENV
-  Deploy:
+  Dev:
     needs: EnvSetup
-    strategy:
-      matrix:
-        Environment: [Dev, QA, Production]
+    uses: ./.github/workflows/reusable-release-logic.yml
+    with:
+      HostingPlan: ${{needs.EnvSetup.outputs.HostingPlan}}
+      ResourceGroupName: ${{needs.EnvSetup.outputs.ResourceGroupName}}
+      ServerName: ${{needs.EnvSetup.outputs.ServerName}}
+      TreatAsPassed: ${{needs.EnvSetup.outputs.TreatAsPassed}}
+      WebsiteName: ${{needs.EnvSetup.outputs.WebsiteName}}
+      Environment: ${{ matrix.Environment }}
+    secrets:
+      inherit
+  QA:
+    needs: Dev
+    uses: ./.github/workflows/reusable-release-logic.yml
+    with:
+      HostingPlan: ${{needs.EnvSetup.outputs.HostingPlan}}
+      ResourceGroupName: ${{needs.EnvSetup.outputs.ResourceGroupName}}
+      ServerName: ${{needs.EnvSetup.outputs.ServerName}}
+      TreatAsPassed: ${{needs.EnvSetup.outputs.TreatAsPassed}}
+      WebsiteName: ${{needs.EnvSetup.outputs.WebsiteName}}
+      Environment: ${{ matrix.Environment }}
+    secrets:
+      inherit
+  Production:
+    needs: QA
     uses: ./.github/workflows/reusable-release-logic.yml
     with:
       HostingPlan: ${{needs.EnvSetup.outputs.HostingPlan}}
