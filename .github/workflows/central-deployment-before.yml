@@ -1,9 +1,6 @@
 name: "Build - Test - Deploy - No Scale"
 on:
-  push:
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ "master" ]
+  workflow_dispatch:
 env:
   buildConfiguration: Release
   buildPlatform: Any CPU
