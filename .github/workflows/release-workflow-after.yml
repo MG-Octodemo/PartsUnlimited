@@ -13,8 +13,6 @@ jobs:
       matrix:
         Environment: [Dev, QA, Production]
     uses: ./.github/workflows/reusable-release-logic.yml
-    secrets:
-      inherit
     with:
       HostingPlan: ${{ env.HostingPlan }}
       ResourceGroupName: ${{ env.ResourceGroupName }}
@@ -22,3 +20,5 @@ jobs:
       TreatAsPassed: ${{ env.TreatAsPassed }}
       WebsiteName: ${{ env.WebsiteName }}
       Environment: ${{ matrix.Environment }}
+    secrets:
+      inherit
