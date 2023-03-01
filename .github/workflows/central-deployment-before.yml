@@ -103,6 +103,8 @@ jobs:
       name: Dev
     env:
       WebsiteName: pule2e87ed314e
+    needs:
+      build
     steps:
     - name: checkout
       uses: actions/checkout@v2
