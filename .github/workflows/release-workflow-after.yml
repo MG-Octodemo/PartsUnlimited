@@ -1,0 +1,24 @@
+name: "Release Workflow After"
+on:
+  workflow_call:
+env:
+  HostingPlan: pule2e
+  ResourceGroupName: ASPDOTNET
+  ServerName: pule2e87ed314e
+  TreatAsPassed: Verify,Manual
+  WebsiteName: pule2e87ed314e
+jobs:
+  Deploy:
+    strategy:
+      matrix:
+        Environment: [Dev, QA, Production]
+    uses: ./.github/workflows/reusable-release-logic.yml
+    secrets:
+      inherit
+    with:
+      HostingPlan: ${{ env.HostingPlan }}
+      ResourceGroupName: ${{ env.ResourceGroupName }}
+      ServerName: ${{ env.ServerName }}
+      TreatAsPassed: ${{ env.TreatAsPassed }}
+      WebsiteName: ${{ env.WebsiteName }}
+      Environment: ${{ env.Environment }}
