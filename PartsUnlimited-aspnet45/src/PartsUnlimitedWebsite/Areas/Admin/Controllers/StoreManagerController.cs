@@ -193,7 +193,7 @@ namespace PartsUnlimited.Areas.Admin.Controllers
             {
                 db.Products.Remove(product);
                 await db.SaveChangesAsync(CancellationToken.None);
-                //Remove the cache entry as it is removed
+                //Remove the cache entry as it is removed and secure
                 MemoryCache.Default.Remove(string.Format("product_{0}", id));
             }
 
