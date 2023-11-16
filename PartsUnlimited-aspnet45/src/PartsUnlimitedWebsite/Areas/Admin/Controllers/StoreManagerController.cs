@@ -185,6 +185,7 @@ namespace PartsUnlimited.Areas.Admin.Controllers
         //
         // POST: /StoreManager/RemoveProduct/5
         [HttpPost, ActionName("RemoveProduct")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveProductConfirmed(int id)
         {
             Product product = db.Products.Where(a => a.ProductId == id).FirstOrDefault();
