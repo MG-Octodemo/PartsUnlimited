@@ -118,5 +118,5 @@ jobs:
         name: BuildResultsFile
     - name: Azure Deployment
       run: |-
-        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --slot Dev --src-path "PartsUnlimitedWebsite.zip"
+        az webapp deploy --resource-group "${{ env.ResourceGroupName }}" --name "${{ env.WebsiteName }}" --src-path "PartsUnlimitedWebsite.zip"
   
