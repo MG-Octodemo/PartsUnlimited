@@ -5,9 +5,7 @@ env:
   buildConfiguration: Release
   buildPlatform: Any CPU
   solution: "PartsUnlimited-aspnet45/PartsUnlimited.sln"
-  HostingPlan: pule2e
-  ResourceGroupName: ASPDOTNET
-  ServerName: pule2e87ed314e
+  ResourceGroupName: PrivateResources
   TreatAsPassed: Verify,Manual
 permissions:
   id-token: write # This is required for requesting the JWT
