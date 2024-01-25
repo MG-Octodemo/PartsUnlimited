@@ -99,7 +99,7 @@ jobs:
     environment:
       name: Dev
     env:
-      WebsiteName: pule2e87ed314e
+      WebsiteName: pule2e87ed314e24
     needs:
       build
     steps:
@@ -128,7 +128,7 @@ jobs:
     environment:
       name: QA
     env:
-      WebsiteName: pule2e87ed314e
+      WebsiteName: pule2e87ed314e24
     steps:
     - name: Azure Deployment
       uses: Azure/login@v1
@@ -149,7 +149,7 @@ jobs:
       name: Production
     runs-on: ubuntu-latest
     env:
-      WebsiteName: pule2e87ed314e
+      WebsiteName: pule2e87ed314e24
     steps:
     - name: Azure Deployment
       uses: Azure/login@v1
