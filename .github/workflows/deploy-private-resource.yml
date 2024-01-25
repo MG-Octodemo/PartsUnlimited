@@ -1,4 +1,4 @@
-name: "Build - Test - Deploy - No Scale"
+name: "Build and Deploy on Premise or Private Cloud"
 on:
   workflow_dispatch:
 env:
