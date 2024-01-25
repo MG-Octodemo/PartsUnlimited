@@ -6,7 +6,7 @@ env:
   ResourceGroupName: ASPDOTNET
   ServerName: pule2e87ed314e
   TreatAsPassed: Verify,Manual
-  WebsiteName: pule2e87ed314e
+  WebsiteName: pule2e87ed314e24
 jobs:
   EnvSetup:
     name: Setup Dynamic Environment Variables
