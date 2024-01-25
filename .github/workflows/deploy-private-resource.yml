@@ -97,6 +97,7 @@ jobs:
   PrivateDeploy:
     runs-on: 
       group: MageroRunnerGroup
+      labels: mageroni-premium-linux
     environment:
       name: Dev
     env:
