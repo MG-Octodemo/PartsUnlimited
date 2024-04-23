@@ -22,6 +22,25 @@ on:
         type: string
 
   workflow_dispatch:
+    inputs:
+      HostingPlan:
+        required: true
+        type: string
+      ResourceGroupName:
+        required: true
+        type: string
+      WebsiteName:
+        required: true
+        type: string
+      ServerName:
+        required: true
+        type: string
+      TreatAsPassed:
+        required: true
+        type: string
+      Environment:
+        required: true
+        type: string
 permissions:
       id-token: write
       contents: read
