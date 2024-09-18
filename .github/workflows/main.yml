@@ -1,0 +1,40 @@
+name: Upload SARIF
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  upload-SARIF:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install jq
+      run: sudo apt-get install jq
+
+    - name: Split SARIF file
+      run: |
+        total_results=$(jq '.runs[0].results | length' results.sarif)
+        chunks=$((total_results / 10 + 1))
+        for i in $(seq 1 $chunks); do
+          jq --argjson start $(((i-1)*10)) --argjson end $((i*10)) '.runs[0].results[$start:$end]' results.sarif > chunk$i.sarif
+        done
+        
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: sarif-chunks
+        path: |
+          chunk*.sarif
+
+    - name: Upload SARIF files
+      run: |
+        for file in chunk*.sarif; do
+          echo "Uploading $file"
+          echo "::set-env name=SARIF_FILE::$file"
+          echo "::set-env name=GITHUB_TOKEN::${{ secrets.GITHUB_TOKEN }}"
+          curl -X POST -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" -H "Content-Type: application/sarif+json" --data-binary @$SARIF_FILE "https://api.github.com/repos/${{ github.repository }}/code-scanning/sarifs"
+        done
