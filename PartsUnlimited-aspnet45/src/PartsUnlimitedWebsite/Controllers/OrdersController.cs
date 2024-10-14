@@ -82,10 +82,10 @@ namespace PartsUnlimited.Controllers
 				//var tax = (subTotal + shipping) * (decimal)0.06;
 				//var total = subTotal + shipping + tax;
 
-				//costSummary.CartSubTotal = subTotal.ToString("C");
-				//costSummary.CartShipping = shipping.ToString("C");
-				//costSummary.CartTax = tax.ToString("C");
-				//costSummary.CartTotal = total.ToString("C");
+				costSummary.CartSubTotal = subTotal.ToString("C");
+				costSummary.CartShipping = shipping.ToString("C");
+				costSummary.CartTax = tax.ToString("C");
+				costSummary.CartTotal = total.ToString("C");
 			}
 
             var viewModel = new OrderDetailsViewModel
