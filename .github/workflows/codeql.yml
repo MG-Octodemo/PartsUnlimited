@@ -87,3 +87,17 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+
+    - name: Check for CodeQL Alerts
+      id: check_alerts
+      run: |
+        echo "Checking for CodeQL alerts..."
+        ALERT_COUNT=$(gh api -H "Accept: application/vnd.github.v3+json" /repos/MG-Octodemo/PartsUnlimited/code-scanning/alerts --jq '.[] | select(.rule.severity == "warning") | .rule.severity' | wc -l)
+        echo "Number of warning alerts: $ALERT_COUNT"
+        echo "ALERT_COUNT=${ALERT_COUNT}" >> $GITHUB_ENV
+
+    - name: Fail if too many alerts
+      if: steps.check_alerts.outputs.alert_count >= 3
+      run: |
+        echo "Failing the job due to too many warning alerts."
+        exit 1
