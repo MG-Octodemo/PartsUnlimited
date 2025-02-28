@@ -92,7 +92,7 @@ jobs:
       id: check_alerts
       run: |
         echo "Checking for CodeQL alerts..."
-        $alerts = gh api -H "Accept: application/vnd.github.v3+json" /repos/MG-Octodemo/PartsUnlimited/code-scanning/alerts --jq '.[] | select(.rule.severity == "medium") | .rule.severity'
+        $alerts = gh api -H "Accept: application/vnd.github.v3+json" /repos/MG-Octodemo/PartsUnlimited/code-scanning/alerts --jq '.[] | select(.rule.severity == "warning") | .rule.severity' | Measure-Object | Select-Object -ExpandProperty Count    
         echo $alerts
         $alertCount = $alerts.Count
         echo "Number of warning alerts: $alertCount"
