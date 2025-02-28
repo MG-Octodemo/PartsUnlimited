@@ -95,7 +95,7 @@ jobs:
         $alerts = gh api -H "Accept: application/vnd.github.v3+json" /repos/MG-Octodemo/PartsUnlimited/code-scanning/alerts --jq '.[] | select(.rule.severity == "warning") | .rule.severity'
         $alertCount = $alerts.Count
         echo "Number of warning alerts: $alertCount"
-        echo "ALERT_COUNT=${alertCount}" >> $GITHUB_ENV
+        echo "ALERT_COUNT=$alertCount" >> $env:GITHUB_ENV
       shell: pwsh
 
     - name: Fail if too many alerts
