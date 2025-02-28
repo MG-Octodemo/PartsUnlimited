@@ -92,12 +92,15 @@ jobs:
       id: check_alerts
       run: |
         echo "Checking for CodeQL alerts..."
-        $alerts = gh api -H "Accept: application/vnd.github.v3+json" /repos/MG-Octodemo/PartsUnlimited/code-scanning/alerts --jq '.[] | select(.rule.severity == "warning") | .rule.severity'
+        $alerts = gh api -H "Accept: application/vnd.github.v3+json" /repos/MG-Octodemo/PartsUnlimited/code-scanning/alerts --jq '.[] | select(.rule.severity == "medium") | .rule.severity'
         $alertCount = $alerts.Count
         echo "Number of warning alerts: $alertCount"
         echo "ALERT_COUNT=$alertCount" >> $env:GITHUB_ENV
         exit 0
       shell: pwsh
+
+    - name: alert count
+      run: echo 
 
     - name: Fail if too many alerts
       if: steps.check_alerts.outputs.alert_count >= 3
