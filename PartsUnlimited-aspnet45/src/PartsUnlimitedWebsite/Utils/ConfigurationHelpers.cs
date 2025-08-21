@@ -7,6 +7,9 @@ namespace PartsUnlimited.Utils
     {
         public static Uri GetUri(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Configuration setting name cannot be null or empty.", nameof(name));
+
             string setting = GetSetting(name);
 
             try
@@ -16,57 +19,67 @@ namespace PartsUnlimited.Utils
             catch (Exception ex)
             {
                 throw new ConfigurationErrorsException(
-                    string.Format("{1}: Unable to parse '{0}' as a Uri", setting, name), ex);
+                    $"Configuration setting '{name}': Unable to parse value as a Uri", ex);
             }
         }
 
         public static int GetInt32(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Configuration setting name cannot be null or empty.", nameof(name));
+
             string setting = GetSetting(name);
 
-            int result;
-            if (Int32.TryParse(setting, out result))
+            if (int.TryParse(setting, out int result))
                 return result;
 
-            throw new ConfigurationErrorsException(string.Format("{1}: Unable to parse '{0}' as an integer", setting,name));
+            throw new ConfigurationErrorsException($"Configuration setting '{name}': Unable to parse value as an integer");
         }
 
         public static string GetString(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Configuration setting name cannot be null or empty.", nameof(name));
+
             return GetSetting(name);
         }
 
         public static bool GetBool(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Configuration setting name cannot be null or empty.", nameof(name));
+
             string setting = GetSetting(name);
 
-            bool result;
-            if (Boolean.TryParse(setting, out result))
+            if (bool.TryParse(setting, out bool result))
                 return result;
 
-            throw new ConfigurationErrorsException(string.Format("{1}: Unable to parse '{0}' as a boolean", setting,
-                name));
+            throw new ConfigurationErrorsException($"Configuration setting '{name}': Unable to parse value as a boolean");
         }
 
         public static TimeSpan GetTimeSpan(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Configuration setting name cannot be null or empty.", nameof(name));
+
             string setting = GetSetting(name);
 
-            TimeSpan result;
-            if (TimeSpan.TryParse(setting, out result))
+            if (TimeSpan.TryParse(setting, out TimeSpan result))
                 return result;
 
-            throw new ConfigurationErrorsException(string.Format("{1}: Unable to parse '{0}' as a Timespan", setting,
-                name));
+            throw new ConfigurationErrorsException($"Configuration setting '{name}': Unable to parse value as a TimeSpan");
         }
 
         public static TimeSpan GetTimeSpanMinutes(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Configuration setting name cannot be null or empty.", nameof(name));
+
             int minutes = GetInt32(name);
 
             if (minutes <= 0)
             {
-                throw new ConfigurationErrorsException("Unable to configure timespan with value less than 1.");
+                throw new ConfigurationErrorsException($"Configuration setting '{name}': TimeSpan value must be greater than 0 minutes.");
             }
 
             return TimeSpan.FromMinutes(minutes);
@@ -74,11 +87,14 @@ namespace PartsUnlimited.Utils
 
         public static TimeSpan GetTimeSpanSeconds(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Configuration setting name cannot be null or empty.", nameof(name));
+
             int seconds = GetInt32(name);
 
             if (seconds <= 0)
             {
-                throw new ConfigurationErrorsException("Unable to configure timespan with value less than 1.");
+                throw new ConfigurationErrorsException($"Configuration setting '{name}': TimeSpan value must be greater than 0 seconds.");
             }
 
             return TimeSpan.FromSeconds(seconds);
@@ -86,9 +102,19 @@ namespace PartsUnlimited.Utils
 
         public static Type GetType(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Configuration setting name cannot be null or empty.", nameof(name));
+
             string stringType = GetString(name);
 
-            return Type.GetType(stringType, true, true);
+            try
+            {
+                return Type.GetType(stringType, true, true);
+            }
+            catch (Exception ex)
+            {
+                throw new ConfigurationErrorsException($"Configuration setting '{name}': Unable to load type", ex);
+            }
         }
 
         private static string GetSetting(string name)
@@ -99,7 +125,7 @@ namespace PartsUnlimited.Utils
             }
             catch (Exception ex)
             {
-                throw new ConfigurationErrorsException(string.Format("{0}: Unable to retrieve setting from configuration", name), ex);
+                throw new ConfigurationErrorsException($"Configuration setting '{name}': Unable to retrieve setting from configuration", ex);
             }
         }
     }
