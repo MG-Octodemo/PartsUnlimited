@@ -1,10 +1,7 @@
 
-name: Validate Survey Completion
+name: Manage Webhook Event
 on:
-  issues:
-    types:
-      - closed
-      - edited
+  workflow_dispatch: 
 
 jobs:
   Check:
