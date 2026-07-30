@@ -1,0 +1,183 @@
+name: Test Planning Framework Configuration
+description: Configure GitHub repository for ISTQB and ISO 25010 based testing
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Test Planning & Quality Assurance Framework Setup
+        
+        This configuration enables comprehensive test planning based on ISTQB and ISO 25010 standards.
+        
+        ## Framework Features
+        - 🎯 **ISTQB-Compliant Test Strategy Templates**
+        - 📊 **ISO 25010 Quality Assessment Framework**
+        - 🎭 **Playwright E2E Testing Integration**
+        - 🏃‍♂️ **Performance Testing Guidelines**
+        - 🔒 **Security Testing Standards**
+        - ♿ **Accessibility Testing (WCAG 2.1 AA)**
+        - 📋 **Comprehensive GitHub Issue Templates**
+
+  - type: checkboxes
+    id: framework_components
+    attributes:
+      label: Framework Components to Enable
+      description: Select the testing components you want to implement
+      options:
+        - label: Test Strategy Planning (ISTQB-based)
+          required: true
+        - label: Quality Assurance Planning (ISO 25010)
+          required: true
+        - label: GitHub Issue Templates for Testing
+          required: true
+        - label: Playwright E2E Testing Framework
+          required: false
+        - label: Performance Testing Templates
+          required: false
+        - label: Security Testing Guidelines
+          required: false
+        - label: Accessibility Testing Standards
+          required: false
+
+  - type: dropdown
+    id: project_type
+    attributes:
+      label: Project Type
+      description: What type of project are you implementing testing for?
+      options:
+        - Web Application (ASP.NET)
+        - Web Application (Node.js)
+        - Mobile Application
+        - API/Microservices
+        - Desktop Application
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: testing_maturity
+    attributes:
+      label: Testing Maturity Level
+      description: What is your current testing maturity level?
+      options:
+        - Beginner (Manual testing only)
+        - Intermediate (Some automation)
+        - Advanced (Comprehensive automation)
+        - Expert (Full CI/CD integration)
+    validations:
+      required: true
+
+  - type: input
+    id: team_size
+    attributes:
+      label: QA Team Size
+      description: How many QA engineers are on your team?
+      placeholder: "e.g., 3"
+    validations:
+      required: true
+
+  - type: textarea
+    id: quality_objectives
+    attributes:
+      label: Quality Objectives
+      description: What are your primary quality objectives for this project?
+      placeholder: |
+        Example:
+        - Response time < 2 seconds
+        - 99.9% availability
+        - WCAG 2.1 AA compliance
+        - Zero critical security vulnerabilities
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: iso25010_priorities
+    attributes:
+      label: ISO 25010 Quality Characteristics Priority
+      description: Select the quality characteristics that are most important for your project
+      options:
+        - label: Functional Suitability (Completeness, Correctness, Appropriateness)
+        - label: Performance Efficiency (Time behavior, Resource utilization, Capacity)
+        - label: Compatibility (Co-existence, Interoperability)
+        - label: Usability (User interface aesthetics, Accessibility, Learnability)
+        - label: Reliability (Fault tolerance, Recoverability, Availability)
+        - label: Security (Confidentiality, Integrity, Authentication, Authorization)
+        - label: Maintainability (Modularity, Reusability, Testability)
+        - label: Portability (Adaptability, Installability, Replaceability)
+
+  - type: textarea
+    id: risk_assessment
+    attributes:
+      label: Initial Risk Assessment
+      description: What are the primary risks you want to address through testing?
+      placeholder: |
+        Example:
+        - Data loss during user transactions
+        - Performance degradation under load
+        - Security vulnerabilities in authentication
+        - Accessibility compliance failures
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: tools_and_frameworks
+    attributes:
+      label: Testing Tools and Frameworks
+      description: Which testing tools do you plan to use or are already using?
+      options:
+        - label: Playwright (E2E testing)
+        - label: Selenium (Legacy E2E testing)
+        - label: Jest/Mocha (Unit testing - JavaScript)
+        - label: MSTest/NUnit/xUnit (Unit testing - .NET)
+        - label: JUnit (Unit testing - Java)
+        - label: PyTest (Unit testing - Python)
+        - label: Azure Load Testing (Performance)
+        - label: JMeter (Performance)
+        - label: LoadRunner (Performance)
+        - label: OWASP ZAP (Security)
+        - label: Burp Suite (Security)
+        - label: axe-core (Accessibility)
+        - label: WAVE (Accessibility)
+
+  - type: textarea
+    id: additional_requirements
+    attributes:
+      label: Additional Requirements
+      description: Any additional testing requirements or constraints?
+      placeholder: |
+        Example:
+        - Must integrate with Azure DevOps
+        - Need mobile testing on iOS and Android
+        - Require compliance with industry standards (HIPAA, PCI-DSS, etc.)
+        - Multi-language support testing
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Next Steps
+        
+        After submitting this configuration:
+        
+        1. 📋 **Review Templates**: Check the generated templates in `docs/ways-of-work/plan/`
+        2. 🎫 **Configure Issues**: Use GitHub issue templates in `.github/ISSUE_TEMPLATE/`
+        3. 📖 **Read Documentation**: Review the comprehensive framework guide
+        4. 🚀 **Start Planning**: Begin with your first test strategy using the templates
+        5. 📊 **Set Up Metrics**: Implement quality metrics dashboard
+        
+        ## Framework Documentation
+        
+        - 📚 [Test Framework README](docs/ways-of-work/TEST_FRAMEWORK_README.md)
+        - 📝 [Test Strategy Template](docs/ways-of-work/plan/test-strategy-template.md)
+        - ✅ [Quality Assurance Template](docs/ways-of-work/plan/qa-plan-template.md)
+        - 📋 [Issue Checklist Template](docs/ways-of-work/plan/test-issues-checklist-template.md)
+        - 🎭 [Playwright Issue Template](.github/ISSUE_TEMPLATE/playwright-tests.md)
+        
+        ## Support
+        
+        For questions or support with the testing framework:
+        - Review the comprehensive documentation
+        - Check the example implementation
+        - Follow ISTQB and ISO 25010 guidelines
+        - Engage with the QA engineering team
