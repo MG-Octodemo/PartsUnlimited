@@ -112,7 +112,10 @@
     <Compile Include="Mocks\MockDataContext.cs" />
     <Compile Include="Mocks\MockHttpContext.cs" />
     <Compile Include="Recommendations\AzureMLFrequentlyBoughtTogetherRecommendationsTests.cs" />
+    <Compile Include="Security\ConfigurationLoginProviderCredentialsTests.cs" />
+    <Compile Include="Utils\ConfigurationHelpersTests.cs" />
     <Compile Include="Utils\OrdersQueryTests.cs" />
+    <Compile Include="Utils\PartsUnlimitedDbInitializerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\PartsUnlimitedWebsite\PartsUnlimitedWebsite.csproj">
