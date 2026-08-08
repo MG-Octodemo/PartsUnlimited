@@ -76,7 +76,7 @@ namespace PartsUnlimited.Controllers
                 _telemetry.TrackEvent("Order/Server/Details", eventProperties, eventMeasurements);
 
 				costSummary = _shippingTaxCalc.CalculateCost(order.OrderDetails, order.PostalCode);
-				//var itemsCount = order.OrderDetails.Sum(x => x.Count);
+				var itemsCount = order.OrderDetails.Sum(x => x.Count);
 				//var subTotal = order.OrderDetails.Sum(x => x.Count * x.Product.Price);
 				//var shipping = itemsCount * (decimal)6.00;
 				//var tax = (subTotal + shipping) * (decimal)0.06;
